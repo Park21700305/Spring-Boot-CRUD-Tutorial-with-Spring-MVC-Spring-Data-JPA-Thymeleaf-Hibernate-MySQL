@@ -26,15 +26,18 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student updateStudent(Student studentDetails) {
-        Student updatedStudent = Student.builder()
-                .firstName(studentDetails.getFirstName())
-                .lastName(studentDetails.getLastName())
-                .email(studentDetails.getEmail())
-                .build();
-
-        return studentRepository.save(updatedStudent);
+    public Student updateStudent(Long id, Student studentDetails) {
+        return studentRepository.findById(id)
+                .map(existingStudent -> {
+                    existingStudent.setFirstName(studentDetails.getFirstName());
+                    existingStudent.setLastName(studentDetails.getLastName());
+                    existingStudent.setEmail(studentDetails.getEmail());
+                    return studentRepository.save(existingStudent);
+                })
+                .orElseThrow(() -> new RuntimeException("Student not found for id " + id));
     }
+
+
 
     public void deleteStudentById(Long id) {
         studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found for id " + id));

@@ -1,19 +1,15 @@
 package com.walab.SpringBootCRUDTutorial.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 
 
 @Entity
 @Table(name = "students")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Student {
 
     @Id
